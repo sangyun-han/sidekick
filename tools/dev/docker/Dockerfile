@@ -10,3 +10,4 @@ RUN apt-get install net-tools -y
 RUN apt-get install iputils-ping -y
 RUN apt-get install iperf -y
 RUN apt-get install htop -y
+RUN apt-get install traceroute -y
