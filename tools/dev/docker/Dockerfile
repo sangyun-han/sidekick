@@ -11,3 +11,4 @@ RUN apt-get install iputils-ping -y
 RUN apt-get install iperf -y
 RUN apt-get install htop -y
 RUN apt-get install traceroute -y
+RUN apt-get install nmap -y
