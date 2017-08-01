@@ -1,0 +1,47 @@
+---
+###########################################################################
+# This file contains the global vars used to configured VM and containers #
+###########################################################################
+#
+# IP Addresses and host names
+dev_host:
+  ip: "192.180.0.200"
+  name: "onos-dev"
+  release: "xenial"
+
+# Networking and bridge configuration
+bridge:
+  phy_interface: "enp0s8"
+  name: "onosbr0"
+  ip: "{{ dev_host.ip }}/24"
+
+# Basic packages to be installed
+basic_packages:
+  - "bridge-utils"
+  - "git"
+  - "git-review"
+  - "python-dev"
+  - "python-pip"
+  - "unzip"
+  - "zip"
+
+# ONOS
+onos_repo_url: "https://gerrit.onosproject.org/onos"
+onos_dir: "/home/ubuntu/onos"
+onos_version: "1.9"
+onos_nic: "192.180.0.*"
+onos_variables:
+  - "export ONOS_ROOT=~/onos"
+  - "source $ONOS_ROOT/tools/dev/bash_profile"
+
+# URL where the ONOS Desktop background is downloaded from
+onos_background_url: "https://gerrit.onosproject.org/gitweb?p=onos-vm.git;a=blob_plain;f=onos.png;hb=refs/heads/master"
+
+# ONOS app dir
+app_dir: "Application"
+download_dir: "Downloads"
+
+# Google Chrome repo
+google_chrome_key_url: "https://ftp-master.debian.org/keys/archive-key-6.0.asc"
+google_chrome_repo: "deb http://dl.google.com/linux/chrome/deb/ stable main"
+
