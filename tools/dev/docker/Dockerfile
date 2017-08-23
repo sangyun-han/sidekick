@@ -14,4 +14,4 @@ RUN apt-get install traceroute -y
 RUN apt-get install nmap -y
 
 # For service
-RUN ping 127.0.0.1
+CMD ping 127.0.0.1
