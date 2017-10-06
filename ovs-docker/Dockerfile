@@ -1,4 +1,4 @@
-FROM socketplane/busybox:latest
+FROM ubuntu:16.04
 MAINTAINER Sangyun Han <sangyun628@gmail.com>
 ENV OVS_VERSION 2.3.2
 ENV SUPERVISOR_STDOUT_VERSION 0.1.1
