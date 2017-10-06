@@ -1,7 +1,13 @@
 FROM ubuntu:16.04
 MAINTAINER Sangyun Han <sangyun628@gmail.com>
-ENV OVS_VERSION 2.3.2
+ENV OVS_VERSION 2.5.2
 ENV SUPERVISOR_STDOUT_VERSION 0.1.1
+
+# run update
+RUN apt-get update
+
+# install network tool
+RUN apt-get install wget -y
 
 # Configure supervisord
 RUN mkdir -p /var/log/supervisor/
