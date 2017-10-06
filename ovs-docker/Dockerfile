@@ -1,6 +1,6 @@
 FROM socketplane/busybox:latest
 MAINTAINER Sangyun Han <sangyun628@gmail.com>
-ENV OVS_VERSION 2.5.2
+ENV OVS_VERSION 2.4.0
 ENV SUPERVISOR_STDOUT_VERSION 0.1.1
 
 # Configure supervisord
@@ -20,7 +20,7 @@ RUN wget https://pypi.python.org/packages/source/s/supervisor-stdout/supervisor-
 
 # Get Open vSwitch
 #WORKDIR /
-RUN wget http://openvswitch.org/releases/openvswitch-$OVS_VERSION.tar.gz --no-check-certificate && \
+RUN wget https://s3-us-west-2.amazonaws.com/docker-ovs/openvswitch-$OVS_VERSION.tar.gz --no-check-certificate && \
 	tar -xzvf openvswitch-$OVS_VERSION.tar.gz &&\
 	mv openvswitch-$OVS_VERSION openvswitch &&\
 	cp -r openvswitch/* / &&\
