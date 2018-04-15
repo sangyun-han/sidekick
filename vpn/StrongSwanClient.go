@@ -64,7 +64,7 @@ func main() {
 	sharedKey := &goStrongswanVici.Key{
 		Typ:    "IKE",
 		Data:   "this is the key",
-		Owners: []string{"192.168.198.10"}, //IP of the remote host
+		Owners: []string{"192.168.56.103"}, //IP of the remote host
 	}
 
 	//load shared key into strongswan
