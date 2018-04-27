@@ -29,25 +29,21 @@ def initConfigFile():
     f.close()
 
 def parseConfig(configStr):
-    configList = configStr.split(",")
+    configList = configStr.split("#")
     return configList
 
 def setTunnel(tunnelConfigList, psk):
-    if len(tunnelConfigList) != TUNNEL_CONFIG_LINE:
-        return 0
+    # TODO check paramater number
 
     tunnelConfigDict = OrderedDict(zip(TUNNEL_CONFIG_KEY, tunnelConfigList))
     tunnelConfigStr = copy.deepcopy(TUNNEL_CONFIG_FORMAT)
     tunnelConfigStr = tunnelConfigStr % tuple(tunnelConfigList)
     tunnelConfigStr = tunnelConfigStr + DEFAULT_CONFIG
 
-    # TODO 중복 체크 추가
+    # TODO duplicate check
     f = open(IPSEC_CONFIG_PATH, "a")
     f.write(tunnelConfigStr)
     f.close()
-
-    result = subprocess.check_output("ipsec update", shell=True)
-    print(result)
 
     # add ###TUNNEL_ID###
     # add PSK 192.168.1.101 192.168.1.102 : PSK 'test123'
@@ -56,6 +52,8 @@ def setTunnel(tunnelConfigList, psk):
     f.write("###%s###\n"%(tunnelConfigDict["conn"]))
     f.write(secret)
     f.close()
+
+    #runIpsecUp()
 
     #tunnelId = tunnelConfigList[0]
     #result = subprocess.check_output("ipsec up %s"%(tunnelId), shell=True)
@@ -69,7 +67,7 @@ def deleteTunnel(tunnelId):
 
     for i in range(len(tunnel_lines)):
         if ("conn " + tunnelId) in tunnel_lines[i]:
-            del tunnel_lines[i:i+TUNNEL_CONFIG_LINE+2]
+            del tunnel_lines[i:i+TUNNEL_CONFIG_LINE+3]
             break
 
     f = open(IPSEC_CONFIG_PATH, "w")
@@ -84,40 +82,48 @@ def deleteTunnel(tunnelId):
 
     for i in range(len(secret_lines)):
         if "###%s###"%(tunnelId) in secret_lines[i]:
-            del secret_lines[i:i+2]
+            del secret_lines[i:i+3]
             break
     f = open(IPSEC_SECRETS_PATH, "w")
     f.writelines(secret_lines)
     f.close()
 
 
+    #runIpsecDown(tunnelId)
+
+
+def runIpsecUp():
+    result = subprocess.check_output("ipsec update", shell=True)
+    print(result)
+
+def runIpsecDown(tunnelId):
     result = subprocess.check_output("ipsec update", shell=True)
     print(result)
     result = subprocess.check_output("ipsec down %s"%(tunnelId), shell=True)
-    print(result)
-
-    # delete PSK
 
 
 
 if __name__ == "__main__":
     print("Number of arguments : ", len(sys.argv))
     print("Argument List : ", str(sys.argv))
-    for i in len(sys.argv):
+    for i in range(len(sys.argv)):
         print(sys.argv[i])
 
     command = sys.argv[1]
 
     if command == "create":
         config = parseConfig(sys.argv[2])
-        setTunnel(config)
+        setTunnel(config, sys.argv[3])
+        print("[LOG] call create")
     elif command == "update":
         config = parseConfig(sys.argv[2])
         tunnelId = config[0]
 
     elif command == "delete":
         deleteTunnel(sys.argv[2])
+        print("[LOG] call delete")
     elif command == "init":
         initConfigFile()
+        print("[LOG] call init")
     else:
         print("ERROR")
