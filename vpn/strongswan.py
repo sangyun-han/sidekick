@@ -32,7 +32,7 @@ def parseConfig(configStr):
     configList = configStr.split("#")
     return configList
 
-def setTunnel(tunnelConfigList, psk):
+def createTunnel(tunnelConfigList, psk):
     # TODO check paramater number
 
     tunnelConfigDict = OrderedDict(zip(TUNNEL_CONFIG_KEY, tunnelConfigList))
@@ -67,7 +67,7 @@ def deleteTunnel(tunnelId):
 
     for i in range(len(tunnel_lines)):
         if ("conn " + tunnelId) in tunnel_lines[i]:
-            del tunnel_lines[i:i+TUNNEL_CONFIG_LINE+3]
+            del tunnel_lines[i-1:i+TUNNEL_CONFIG_LINE+3]
             break
 
     f = open(IPSEC_CONFIG_PATH, "w")
@@ -113,7 +113,7 @@ if __name__ == "__main__":
 
     if command == "create":
         config = parseConfig(sys.argv[2])
-        setTunnel(config, sys.argv[3])
+        createTunnel(config, sys.argv[3])
         print("[LOG] call create")
     elif command == "update":
         config = parseConfig(sys.argv[2])
