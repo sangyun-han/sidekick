@@ -67,7 +67,7 @@ def deleteTunnel(tunnelId):
 
     for i in range(len(tunnel_lines)):
         if ("conn " + tunnelId) in tunnel_lines[i]:
-            del tunnel_lines[i-1:i+TUNNEL_CONFIG_LINE+3]
+            del tunnel_lines[i:i+TUNNEL_CONFIG_LINE+3]
             break
 
     f = open(IPSEC_CONFIG_PATH, "w")
