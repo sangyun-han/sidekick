@@ -53,7 +53,7 @@ def createTunnel(tunnelConfigList, psk):
     f.write(secret)
     f.close()
 
-    #runIpsecUp()
+    runIpsecUpdate()
 
     #tunnelId = tunnelConfigList[0]
     #result = subprocess.check_output("ipsec up %s"%(tunnelId), shell=True)
@@ -89,11 +89,15 @@ def deleteTunnel(tunnelId):
     f.close()
 
 
-    #runIpsecDown(tunnelId)
+    runIpsecDown(tunnelId)
 
 
-def runIpsecUp():
+def runIpsecUpdate():
     result = subprocess.check_output("ipsec update", shell=True)
+    print(result)
+
+def runIpsecUp(tunnelId):
+    result = subprocess.check_output("ipsec up %s"%(tunnelId), shell=True)
     print(result)
 
 def runIpsecDown(tunnelId):
@@ -118,12 +122,17 @@ if __name__ == "__main__":
     elif command == "update":
         config = parseConfig(sys.argv[2])
         tunnelId = config[0]
-
     elif command == "delete":
         deleteTunnel(sys.argv[2])
         print("[LOG] call delete")
     elif command == "init":
         initConfigFile()
         print("[LOG] call init")
+    elif command == "up":
+        runIpsecUp(sys.argv[2])
+        print("[LOG] up the tunnel")
+    elif command == "down":
+        runIpsecDown(sys.argv[2])
+        print("[LOG] down the tunnel")
     else:
-        print("ERROR")
+        print("ERROR : StrongSwan python script")
