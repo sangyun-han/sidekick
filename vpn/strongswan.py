@@ -13,7 +13,7 @@ IPSEC_SECRETS_FILE = '### ipsec.secrets ###\n\n'
 TUNNEL_CONFIG_KEY = ["conn", "left", "leftsubnet", "right", "rightsubnet", "ikelifetime", "lifetime", "keyexchange", "dpddelay", "dpdtimeout", "ike", "esp", "keyingtries""dpdaction", "authby", "auto", "type"]
 TUNNEL_CONFIG_LINE = len(TUNNEL_CONFIG_KEY)
 TUNNEL_CONFIG_PARAMETER_COUNT = 8
-TUNNEL_CONFIG_FORMAT = "\nconn %s\n\tleft=%s\n\tleftsubnet=%s\n\tright=%s\n\trightsubnet=%s\n\tikelifetime=%s\n\tlifetime=%s\n\tkeyexchange=%s\n\t"
+TUNNEL_CONFIG_FORMAT = "conn %s\n\tleft=%s\n\tleftsubnet=%s\n\tright=%s\n\trightsubnet=%s\n\tikelifetime=%s\n\tlifetime=%s\n\tkeyexchange=%s\n\t"
 DEFAULT_CONFIG = "dpddelay=30\n\tdpdtimeout=120\n\tike=aes256-sha2_256-modp1024!\n\tesp=aes256-sha2_256!\n\tkeyingtries=0\n\tdpdaction=restart\n\tauthby=secret\n\tauto=start\n\ttype=tunnel\n\n"
 
 
@@ -53,7 +53,7 @@ def createTunnel(tunnelConfigList, psk):
     f.write(secret)
     f.close()
 
-    runIpsecUpdate()
+    #runIpsecUpdate()
 
     #tunnelId = tunnelConfigList[0]
     #result = subprocess.check_output("ipsec up %s"%(tunnelId), shell=True)
@@ -67,7 +67,7 @@ def deleteTunnel(tunnelId):
 
     for i in range(len(tunnel_lines)):
         if ("conn " + tunnelId) in tunnel_lines[i]:
-            del tunnel_lines[i:i+TUNNEL_CONFIG_LINE+3]
+            del tunnel_lines[i:i+TUNNEL_CONFIG_LINE+2]
             break
 
     f = open(IPSEC_CONFIG_PATH, "w")
@@ -118,6 +118,7 @@ if __name__ == "__main__":
     if command == "create":
         config = parseConfig(sys.argv[2])
         createTunnel(config, sys.argv[3])
+        runIpsecUpdate()
         print("[LOG] call create")
     elif command == "update":
         config = parseConfig(sys.argv[2])
@@ -134,5 +135,8 @@ if __name__ == "__main__":
     elif command == "down":
         runIpsecDown(sys.argv[2])
         print("[LOG] down the tunnel")
+    elif command == "add":
+        config = parseConfig(sys.argv[2])
+        createTunnel(config, sys.argv[3]) 
     else:
         print("ERROR : StrongSwan python script")
