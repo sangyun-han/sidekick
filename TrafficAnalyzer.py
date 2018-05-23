@@ -1,8 +1,11 @@
 from scapy.all import *
 import json
 import sys
+import operator
 
-def summary(p):
+TOP_COUNT = 5
+
+def getSummaryMap(p):
     summaryStr = str(p)
     summaryStr = summaryStr.replace('<', '').replace('>', '').replace('Sniffed: ', '')
     paramList = summaryStr.split(' ')
@@ -13,11 +16,6 @@ def summary(p):
         summaryMap[tmp[0]] = tmp[1]
 
     return summaryMap
-
-
-
-def extractSummary(summary_str):
-    pass
 
 def cleanPayload(p):
     p = str(p)
@@ -62,20 +60,47 @@ if __name__ == "__main__":
             dstIpCountingMap[dstIp] = dstIpCount + 1
             srcPortCountingMap[srcPort] = srcPortCount + 1
             dstPortCountingMap[dstPort] = dstPortCount + 1
+        except Exception as e:
+            continue
+
+    l2CountingList = sorted(l2CountingMap.items(), key=operator.itemgetter(1), reverse=True)
+    l3CountingList = sorted(l3CountingMap.items(), key=operator.itemgetter(1), reverse=True)    
+    srcIpCountingList = sorted(srcIpCountingMap.items(), key=operator.itemgetter(1), reverse=True)    
+    dstIpCountingList = sorted(dstIpCountingMap.items(), key=operator.itemgetter(1), reverse=True)    
+    srcPortCountingList = sorted(srcPortCountingMap.items(), key=operator.itemgetter(1), reverse=True)    
+    dstPortCountingList = sorted(dstPortCountingMap.items(), key=operator.itemgetter(1), reverse=True)
 
 
+    print("\n**** L2 ****")
+    for i in range(TOP_COUNT):
+        print(l2CountingList[i])
 
+    print("\n**** L3 ****")
+    for i in range(TOP_COUNT):
+        print(l3CountingList[i])
 
+    print("\n**** Source IP ****")
+    for i in range(TOP_COUNT):
+        print(srcIpCountingList[i])
 
-#    summary = packet.summary()
+    print("\n**** Destination IP ****")
+    for i in range(TOP_COUNT):
+        print(dstIpCountingList[i])
+    
+    print("\n**** Source Port ****")
+    for i in range(TOP_COUNT):
+        print(srcPortCountingList[i])
 
-    #print(summary)
-    #print(cleanPayload(packet))
-    #testMap = summary(packet)
-    #print(testMap)
-    a = summary(packet)
+    print("\n**** Destination Port ****")
+    for i in range(TOP_COUNT):
+        print(dstPortCountingList[i])
+
+    a = getSummaryMap(packet)
     print(a)
+    print(type(a))
     print(str(a))
+    print(count)
 
-
+    print("\n**** Total Count ****")
+    print(len(packet))
 
