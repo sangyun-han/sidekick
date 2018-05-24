@@ -65,12 +65,30 @@ if __name__ == "__main__":
 
     l2CountingList = sorted(l2CountingMap.items(), key=operator.itemgetter(1), reverse=True)
     l3CountingList = sorted(l3CountingMap.items(), key=operator.itemgetter(1), reverse=True)    
-    srcIpCountingList = sorted(srcIpCountingMap.items(), key=operator.itemgetter(1), reverse=True)    
+    srcIpCountingList = sorted(srcIpCountingMap.items(), key=operator.itemgetter(1), reverse=True)
     dstIpCountingList = sorted(dstIpCountingMap.items(), key=operator.itemgetter(1), reverse=True)    
     srcPortCountingList = sorted(srcPortCountingMap.items(), key=operator.itemgetter(1), reverse=True)    
     dstPortCountingList = sorted(dstPortCountingMap.items(), key=operator.itemgetter(1), reverse=True)
 
+    srcIpCountingList = srcIpCountingList[0:TOP_COUNT]
+    dstIpCountingList = dstIpCountingList[0:TOP_COUNT]
+    srcPortCountingList = srcPortCountingList[0:TOP_COUNT]
+    dstPortCountingList = dstPortCountingList[0:TOP_COUNT]
 
+    summaryMap = getSummaryMap(packet)
+    summaryMap["duration"] = input_timeout
+    summaryMap["total_packet_count"] = len(packet)
+
+    returnMap = {}
+    returnMap["SUMMARY"] = summaryMap
+    returnMap["SOURCE_IP_COUNT"] = srcIpCountingList
+    returnMap["DESTINATION_IP_COUNT"] = dstIpCountingList
+    returnMap["SOURCE_PORT_COUNT"] = srcPortCountingList
+    returnMap["DESTINATION_PORT_COUNT"] = dstPortCountingList
+
+    print(json.dumps(returnMap))
+        
+    '''
     print("\n**** L2 ****")
     for i in range(TOP_COUNT):
         print(l2CountingList[i])
@@ -103,4 +121,4 @@ if __name__ == "__main__":
 
     print("\n**** Total Count ****")
     print(len(packet))
-
+    '''
