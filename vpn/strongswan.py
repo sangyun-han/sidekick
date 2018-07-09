@@ -14,7 +14,7 @@ TUNNEL_CONFIG_KEY = ["conn", "left", "leftsubnet", "right", "rightsubnet", "ikel
 TUNNEL_CONFIG_LINE = len(TUNNEL_CONFIG_KEY)
 TUNNEL_CONFIG_PARAMETER_COUNT = 8
 TUNNEL_CONFIG_FORMAT = "conn %s\n\tleft=%s\n\tleftsubnet=%s\n\tright=%s\n\trightsubnet=%s\n\tikelifetime=%s\n\tlifetime=%s\n\tkeyexchange=%s\n\t"
-DEFAULT_CONFIG = "dpddelay=30\n\tdpdtimeout=120\n\tike=aes256-sha2_256-modp1024!\n\tesp=aes256-sha2_256!\n\tkeyingtries=0\n\tdpdaction=restart\n\tauthby=secret\n\tauto=start\n\ttype=tunnel\n\n"
+DEFAULT_CONFIG = "dpddelay=30s\n\tdpdtimeout=150s\n\t#ike=aes256-sha2_256-modp1024!\n\t#esp=aes256-sha2_256!\n\tkeyingtries=1\n\tdpdaction=restart\n\tauthby=secret\n\tauto=start\n\treauth=yes\n\ttype=tunnel\n\n"
 
 
 def initConfigFile():
