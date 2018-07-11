@@ -10,7 +10,7 @@ IPSEC_CONFIG_PATH = "/etc/ipsec.conf"
 IPSEC_SECRETS_PATH = "/etc/ipsec.secrets"
 IPSEC_CONFIG_FILE = '### ipsec.conf ###\nconfig setup\n\tcharondebug="all"\n\tuniqueids=yes\n\tstrictcrlpolicy=no\n\n'
 IPSEC_SECRETS_FILE = '### ipsec.secrets ###\n\n'
-TUNNEL_CONFIG_KEY = ["conn", "left", "leftsubnet", "right", "rightsubnet", "ikelifetime", "lifetime", "keyexchange", "dpddelay", "dpdtimeout", "ike", "esp", "keyingtries""dpdaction", "authby", "auto", "type"]
+TUNNEL_CONFIG_KEY = ["conn", "left", "leftsubnet", "right", "rightsubnet", "ikelifetime", "lifetime", "keyexchange", "dpddelay", "dpdtimeout", "ike", "esp", "keyingtries", "dpdaction", "authby", "auto", "reauth", "type"]
 TUNNEL_CONFIG_LINE = len(TUNNEL_CONFIG_KEY)
 TUNNEL_CONFIG_PARAMETER_COUNT = 8
 TUNNEL_CONFIG_FORMAT = "conn %s\n\tleft=%s\n\tleftsubnet=%s\n\tright=%s\n\trightsubnet=%s\n\tikelifetime=%s\n\tlifetime=%s\n\tkeyexchange=%s\n\t"
