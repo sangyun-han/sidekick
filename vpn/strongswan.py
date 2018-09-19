@@ -13,7 +13,7 @@ IPSEC_SECRETS_FILE = '### ipsec.secrets ###\n\n'
 TUNNEL_CONFIG_KEY = ["conn", "left", "leftsubnet", "right", "rightsubnet", "ikelifetime", "lifetime", "keyexchange", "dpddelay", "dpdtimeout", "ike", "esp", "keyingtries", "dpdaction", "authby", "auto", "reauth", "type"]
 TUNNEL_CONFIG_LINE = len(TUNNEL_CONFIG_KEY)
 TUNNEL_CONFIG_PARAMETER_COUNT = 8
-TUNNEL_CONFIG_FORMAT = "conn %s\n\tleft=%s\n\tleftsubnet=%s\n\tright=%s\n\trightsubnet=%s\n\tikelifetime=%s\n\tlifetime=%s\n\tkeyexchange=%s\n\tike=%s\n\tesp=%s\n\t"
+TUNNEL_CONFIG_FORMAT = "conn %s\n\tleft=%s\n\tleftsubnet=%s\n\tright=%s\n\trightsubnet=%s\n\tikelifetime=%s\n\tlifetime=%s\n\tike=%s\n\tesp=%s\n\tkeyexchange=%s\n\t"
 DEFAULT_CONFIG = "dpddelay=30s\n\tdpdtimeout=150s\n\tkeyingtries=1\n\tdpdaction=restart\n\tauthby=secret\n\tauto=start\n\treauth=yes\n\ttype=tunnel\n\n"
 
 
