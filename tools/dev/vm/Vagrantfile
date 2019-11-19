@@ -6,7 +6,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "m01" do |m01|
     m01.vm.box = "ubuntu/xenial64"
     m01.vm.hostname = "m01"
-    m01.vm.network "private_network", ip: "192.180.0.101"
+    m01.vm.network "private_network", ip: "192.168.111.101"
     m01.vm.provider "virtualbox" do |v|
       v.name = "m01"
       v.memory = 4096
@@ -16,7 +16,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "m02" do |m02|
     m02.vm.box = "ubuntu/xenial64"
     m02.vm.hostname = "m02"
-    m02.vm.network "private_network", ip: "192.180.0.102"
+    m02.vm.network "private_network", ip: "192.168.111.102"
     m02.vm.provider "virtualbox" do |v|
       v.name = "m02"
       v.memory = 4096
@@ -26,7 +26,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "m03" do |m03|
     m03.vm.box = "ubuntu/xenial64"
     m03.vm.hostname = "m03"
-    m03.vm.network "private_network", ip: "192.180.0.103"
+    m03.vm.network "private_network", ip: "192.168.111.103"
     m03.vm.provider "virtualbox" do |v|
       v.name = "m03"
       v.memory = 4096
